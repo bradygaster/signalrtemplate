@@ -10,7 +10,7 @@ namespace SignalRTemplate.Workers
 {
     public class ServerClock : BackgroundService
     {
-        public ServerClock(IHubContext<ServerTimeHub,IClock> serverTimeHub)
+        public ServerClock(IHubContext<ServerTimeHub, IClock> serverTimeHub)
         {
             ServerTimeHub = serverTimeHub;
         }
@@ -19,10 +19,10 @@ namespace SignalRTemplate.Workers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while(!stoppingToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
                 await ServerTimeHub.Clients.All.SendTime(DateTime.UtcNow);
-                await Task.Delay(1000);
+                await Task.Delay(1000, stoppingToken);
             }
         }
     }

@@ -1,9 +1,11 @@
-var clockConnection = connectionBuilder.withUrl("/serverTime").build();
+var clockConnection = new signalR.HubConnectionBuilder().withUrl("/serverTime").build();
 
-clockConnection.on("SendTime", function (serverTime) {
-    document.getElementById("serverTime").innerText = 
+var updateServerTime = function (serverTime) {
+    document.getElementById("serverTime").innerText =
         new Date(serverTime).toLocaleTimeString();
-});
+};
+
+clockConnection.on("SendTime", updateServerTime);
 
 clockConnection.start().then(function () {
     // do your own post-connection-started work here

@@ -1,4 +1,4 @@
-var chatConnection = connectionBuilder.withUrl("/chatHub").build();
+var chatConnection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 chatConnection.on("Send", function (message) {
     var li = document.createElement("li");
