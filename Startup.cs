@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SignalRTemplate.Hubs;
-using SignalRTemplate.Workers;
 
 namespace SignalRTemplate
 {
@@ -36,7 +35,6 @@ namespace SignalRTemplate
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddHostedService<ServerClock>();
             services.AddSignalR();
         }
 
@@ -63,7 +61,7 @@ namespace SignalRTemplate
             app.UseSignalR((routes) => 
             {
                 routes.MapHub<ChatHub>("/chathub");
-                routes.MapHub<ServerTimeHub>("/serverTime");
+                routes.MapHub<StreamingTimerHub>("/streamingtime");
             });
         }
     }
